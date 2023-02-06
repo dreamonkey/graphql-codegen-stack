@@ -1,7 +1,6 @@
-/**
- * @returns {import('vite').Plugin}
- */
-module.exports = function vueQueryBlock() {
+import { type Plugin } from 'vite';
+
+export default function vueQueryBlock(): Plugin {
   return {
     name: 'graphql-codegen',
 
@@ -15,4 +14,4 @@ module.exports = function vueQueryBlock() {
       }
     },
   };
-};
+}

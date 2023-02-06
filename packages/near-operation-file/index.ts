@@ -1,7 +1,6 @@
-/**
- * @returns {import('vite').Plugin}
- */
-module.exports = function graphQLCodegen() {
+import { type Plugin } from 'vite';
+
+export default function graphQLCodegen(): Plugin {
   return {
     name: 'graphql-codegen',
 
@@ -12,4 +11,4 @@ module.exports = function graphQLCodegen() {
       }
     },
   };
-};
+}

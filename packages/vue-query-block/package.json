@@ -16,18 +16,28 @@
     "url": "https://github.com/dreamonkey/graphql-codegen-stack/issues"
   },
   "license": "MIT",
-  "main": "index.js",
+  "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./vite": {
-      "require": "./vite-plugin.js"
-    },
-    "./package.json": "./package.json"
+      "types": "./dist/vite-plugin.d.ts",
+      "import": "./dist/vite-plugin.mjs",
+      "require": "./dist/vite-plugin.cjs"
+    }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "echo \"TODO: Use TS and implement build script\"",
+    "build": "unbuild",
     "test": "echo \"TODO: Implement tests\""
   },
   "peerDependencies": {
@@ -39,6 +49,7 @@
     "@types/node": "^16.18.12",
     "@vue/compiler-sfc": "^3.2.47",
     "graphql": "^15.8.0",
+    "unbuild": "^1.1.1",
     "vite": "^2.9.15"
   }
 }

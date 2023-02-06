@@ -16,15 +16,23 @@
     "url": "https://github.com/dreamonkey/graphql-codegen-stack/issues"
   },
   "license": "MIT",
-  "main": "index.js",
+  "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
-      "require": "./index.js"
-    },
-    "./package.json": "./package.json"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "echo \"TODO: Use TS and implement build script\"",
+    "build": "unbuild",
     "test": "echo \"TODO: Implement tests\""
   },
   "peerDependencies": {
@@ -32,6 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.18.12",
+    "unbuild": "^1.1.1",
     "vite": "^2.9.15"
   }
 }

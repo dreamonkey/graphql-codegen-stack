@@ -1,32 +1,37 @@
-const { isListType, isNonNullType } = require('graphql');
+import { type CodegenPlugin } from '@graphql-codegen/plugin-helpers';
+import {
+  isListType,
+  isNonNullType,
+  type OperationDefinitionNode,
+} from 'graphql';
 
 /**
- * @param {string} str camelCase string
- * @returns {string}
+ * @param str camelCase string
  */
-const toPascalCase = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const toPascalCase = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
 
-/** @type {import('@graphql-codegen/plugin-helpers').CodegenPlugin} */
-module.exports = {
+const codegenPlugin: CodegenPlugin = {
   // Since this plugin is designed to work only with near-operation-file, there will always only be 1 document file at a time
   plugin(schema, [documentFile]) {
     const { document } = documentFile;
     if (!document) {
-      return;
+      return {
+        content: '',
+      };
     }
 
     const queryType = schema.getQueryType();
     if (!queryType) {
-      return;
+      return {
+        content: '',
+      };
     }
     const queryFields = queryType.getFields();
 
     const operations = document.definitions.filter(
-      /**
-       * @param {import('graphql').DefinitionNode} definition
-       * @returns {definition is import('graphql').OperationDefinitionNode}
-       */
-      (definition) => definition.kind === 'OperationDefinition',
+      (definition): definition is OperationDefinitionNode =>
+        definition.kind === 'OperationDefinition',
     );
     const queries = operations.filter(({ operation }) => operation === 'query');
     const mutations = operations.filter(
@@ -159,3 +164,5 @@ module.exports = {
     };
   },
 };
+
+export default codegenPlugin;

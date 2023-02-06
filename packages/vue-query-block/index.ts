@@ -1,12 +1,10 @@
-const { readFile } = require('node:fs/promises');
-const { parse: parseVueSfc } = require('@vue/compiler-sfc');
-const { parse: parseGraphqlDocument } = require('graphql');
+import { readFile } from 'node:fs/promises';
+import { parse as parseVueSfc } from '@vue/compiler-sfc';
+import { parse as parseGraphqlDocument, type DocumentNode } from 'graphql';
 
-/**
- * @param {string} pointer
- * @returns {Promise<import('graphql').DocumentNode | undefined>}
- */
-module.exports = async (pointer) => {
+export default async function (
+  pointer: string,
+): Promise<DocumentNode | undefined> {
   if (!pointer.endsWith('.vue')) {
     return;
   }
@@ -26,4 +24,4 @@ module.exports = async (pointer) => {
   }
 
   return parseGraphqlDocument(source);
-};
+}

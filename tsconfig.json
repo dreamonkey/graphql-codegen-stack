@@ -5,7 +5,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
 
-    "module": "CommonJS",
+    "module": "NodeNext",
     "target": "ES2021",
     "lib": ["ES2021"],
     "moduleResolution": "node"
