@@ -5,13 +5,19 @@
   "scripts": {
     "build": "pnpm run --recursive --stream build",
     "test": "pnpm run --recursive --stream test",
-    "lint": "echo \"TODO: Implement linting\"",
+    "lint": "eslint . --ext .ts,.js,.cjs",
     "format": "prettier --write \"**/*.{js,ts,json,ya?ml,md}\" --ignore-path .gitignore"
   },
   "engines": {
     "node": ">= 16.11.0"
   },
   "devDependencies": {
-    "prettier": "^2.8.3"
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "eslint": "^8.33.0",
+    "eslint-config-coralloy": "^0.1.0",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.5"
   }
 }
