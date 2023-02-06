@@ -1,0 +1,44 @@
+{
+  "name": "@dreamonkey/graphql-codegen-vue-query-block",
+  "version": "0.0.0",
+  "description": "TODO: Add description",
+  "author": "Dreamonkey Srl <info@dreamonkey.com> (https://dreamonkey.com)",
+  "contributors": [
+    "Yusuf Kandemir <y.kandemir@dreamonkey.com>"
+  ],
+  "homepage": "https://github.com/dreamonkey/graphql-codegen-stack/tree/main/packages/vue-query-block#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dreamonkey/graphql-codegen-stack.git",
+    "directory": "packages/vue-query-block"
+  },
+  "bugs": {
+    "url": "https://github.com/dreamonkey/graphql-codegen-stack/issues"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js"
+    },
+    "./vite": {
+      "require": "./vite-plugin.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "echo \"TODO: Use TS and implement build script\"",
+    "test": "echo \"TODO: Implement tests\""
+  },
+  "peerDependencies": {
+    "@vue/compiler-sfc": "^3.2.0",
+    "graphql": "^15.0.0 || ^16.0.0",
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.12",
+    "@vue/compiler-sfc": "^3.2.47",
+    "graphql": "^15.8.0",
+    "vite": "^2.9.15"
+  }
+}

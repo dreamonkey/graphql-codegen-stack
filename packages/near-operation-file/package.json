@@ -1,0 +1,37 @@
+{
+  "name": "@dreamonkey/graphql-codegen-near-operation-file",
+  "version": "0.0.0",
+  "description": "TODO: Add description",
+  "author": "Dreamonkey Srl <info@dreamonkey.com> (https://dreamonkey.com)",
+  "contributors": [
+    "Yusuf Kandemir <y.kandemir@dreamonkey.com>"
+  ],
+  "homepage": "https://github.com/dreamonkey/graphql-codegen-stack/tree/main/packages/near-operation-file#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dreamonkey/graphql-codegen-stack.git",
+    "directory": "packages/near-operation-file"
+  },
+  "bugs": {
+    "url": "https://github.com/dreamonkey/graphql-codegen-stack/issues"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "echo \"TODO: Use TS and implement build script\"",
+    "test": "echo \"TODO: Implement tests\""
+  },
+  "peerDependencies": {
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.12",
+    "vite": "^2.9.15"
+  }
+}

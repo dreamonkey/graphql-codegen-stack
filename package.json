@@ -1,0 +1,17 @@
+{
+  "name": "@dreamonkey/graphql-codegen-stack-monorepo",
+  "packageManager": "pnpm@7.26.3",
+  "private": true,
+  "scripts": {
+    "build": "pnpm run --recursive --stream build",
+    "test": "pnpm run --recursive --stream test",
+    "lint": "echo \"TODO: Implement linting\"",
+    "format": "prettier --write \"**/*.{js,ts,json,ya?ml,md}\" --ignore-path .gitignore"
+  },
+  "engines": {
+    "node": ">= 16.11.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.3"
+  }
+}
