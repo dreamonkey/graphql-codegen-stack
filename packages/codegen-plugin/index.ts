@@ -14,18 +14,17 @@ const toPascalCase = (str: string) =>
 const codegenPlugin: CodegenPlugin = {
   // Since this plugin is designed to work only with near-operation-file, there will always only be 1 document file at a time
   plugin(schema, [documentFile]) {
+    if (!documentFile) {
+      return '';
+    }
     const { document } = documentFile;
     if (!document) {
-      return {
-        content: '',
-      };
+      return '';
     }
 
     const queryType = schema.getQueryType();
     if (!queryType) {
-      return {
-        content: '',
-      };
+      return '';
     }
     const queryFields = queryType.getFields();
 
@@ -46,7 +45,7 @@ const codegenPlugin: CodegenPlugin = {
         }
         // Queries should contain their first selection as the field name on the GraphQL schema
         const field = selectionSet.selections[0];
-        if (field.kind !== 'Field') {
+        if (field?.kind !== 'Field') {
           console.warn('[vue-apollo] Skipping query with no field');
           return;
         }
@@ -57,7 +56,7 @@ const codegenPlugin: CodegenPlugin = {
         const lazyQueryName = `${name}LazyQuery`;
         const documentName = `${name}Document`;
 
-        const mainType = queryFields[fieldName].type;
+        const mainType = queryFields[fieldName]?.type;
         const isNonNullableArray =
           isNonNullType(mainType) && isListType(mainType.ofType);
 
@@ -99,7 +98,7 @@ const codegenPlugin: CodegenPlugin = {
         }
         // Mutations should contain their first selection as the field/mutation name on the GraphQL schema
         const field = selectionSet.selections[0];
-        if (field.kind !== 'Field') {
+        if (field?.kind !== 'Field') {
           console.warn('[vue-apollo] Skipping mutation with no field');
           return;
         }

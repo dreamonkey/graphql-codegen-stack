@@ -6,9 +6,11 @@ export default function graphQLCodegen(): Plugin {
 
     // TODO: Invoke GraphQL Codegen on the fly
     load(id) {
-      if (id.endsWith('.graphql')) {
-        return `export * from '${id}.ts'`;
+      if (!id.endsWith('.graphql')) {
+        return;
       }
+
+      return `export * from '${id}.ts'`;
     },
   };
 }
