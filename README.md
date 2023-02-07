@@ -1,10 +1,14 @@
 # GraphQL Code Generator Stack
 
-TODO: Add description and links to the packages
+A collection of packages to help you generate code from GraphQL documents and use them easily in your code.
 
-## Features
+## Packages
 
-- [x] Auto-generated Vue Apollo composables on steroids 🚀
-- [x] Enhanced `near-operation-file-preset` setup with `.graphql` imports
-- [x] Vue SFC `<query>` block
-- [ ] GraphQL Code Generator scaffolding and integration (_Quasar App Extension_)
+- [@dreamonkey/graphql-codegen-vue-apollo-plugin](./packages/codegen-plugin) - Auto-generated Vue Apollo composables on steroids 🚀 powered by GraphQL Code Generator
+- [@dreamonkey/graphql-codegen-near-operation-file](./packages/near-operation-file) - Write your documents in `.graphql` files, then import the generated code from `.graphql` files in your code!
+- [@dreamonkey/graphql-codegen-vue-query-block](./packages/vue-query-block) - Custom `<query>` block to define GraphQL documents in Vue SFCs
+- TODO: [@dreamonkey/app-extension-graphql-codegen](./packages/app-extension) - GraphQL Code Generator scaffolding and integration with all the packages in this repo for [Quasar Framework](https://quasar.dev/) as an App Extension
+
+## Donate
+
+If you appreciate the work that went into these packages, please consider [donating](https://github.com/sponsors/dreamonkey).

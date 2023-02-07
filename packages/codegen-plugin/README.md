@@ -188,3 +188,7 @@ async function create() {
   }
 }
 ```
+
+## Donate
+
+If you appreciate the work that went into this package, please consider [donating](https://github.com/sponsors/dreamonkey).

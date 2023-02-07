@@ -214,3 +214,7 @@ query getPost($id: ID!) {
 }
 </query>
 ```
+
+## Donate
+
+If you appreciate the work that went into this package, please consider [donating](https://github.com/sponsors/dreamonkey).
