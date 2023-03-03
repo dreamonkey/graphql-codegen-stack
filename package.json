@@ -6,7 +6,8 @@
     "build": "pnpm run --recursive --stream --parallel build",
     "test": "pnpm run --recursive --stream test",
     "lint": "eslint . --ext .ts,.js,.cjs",
-    "format": "prettier --write \"**/*.{js,ts,json,ya?ml,md}\" --ignore-path .gitignore"
+    "format": "prettier --write \"**/*.{js,ts,json,ya?ml,md}\" --ignore-path .gitignore",
+    "deploy": "pnpm run build && pnpm -r publish"
   },
   "engines": {
     "node": ">= 16.11.0"
