@@ -1,6 +1,6 @@
 # @dreamonkey/graphql-codegen-near-operation-file
 
-<!-- TODO: Create a new package for(or convert this package to) an opiniated, ready to use GraphQL Code Generator preset -->
+<!-- TODO: Create a new package for(or convert this package to) an opinionated, ready to use GraphQL Code Generator preset -->
 
 Write your documents in `.graphql` files, then import the generated code from `.graphql` files in your code!
 

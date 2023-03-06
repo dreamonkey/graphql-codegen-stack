@@ -51,7 +51,7 @@ query getPosts {
 }
 
 # `createPost` name will be used as the name of the mutation function in the composable result
-query createPost($input: PostInput!) {
+mutation createPost($input: PostInput!) {
   posts {
     ...PostDetails
   }
