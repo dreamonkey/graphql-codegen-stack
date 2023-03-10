@@ -1,3 +1,4 @@
+// Required to bring plugins from Coralloy config: https://www.npmjs.com/package/@rushstack/eslint-patch
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 require('@rushstack/eslint-patch/modern-module-resolution');
 
