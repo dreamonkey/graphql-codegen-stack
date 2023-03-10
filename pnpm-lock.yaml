@@ -4,11 +4,17 @@ importers:
 
   .:
     specifiers:
+      '@rushstack/eslint-patch': ^1.2.0
+      '@typescript-eslint/eslint-plugin': ^5.51.0
+      '@typescript-eslint/parser': ^5.51.0
       eslint: ^8.35.0
       eslint-config-coralloy: ^0.1.1
       prettier: ^2.8.4
       typescript: ^4.9.5
     devDependencies:
+      '@rushstack/eslint-patch': 1.2.0
+      '@typescript-eslint/eslint-plugin': 5.54.1_mlk7dnz565t663n4razh6a6v6i
+      '@typescript-eslint/parser': 5.54.1_ycpbpc6yetojsgtrx3mwntkhsu
       eslint: 8.35.0
       eslint-config-coralloy: 0.1.1_64jebu3ilvs7epq3v3pc7ikc4m
       prettier: 2.8.4
@@ -890,6 +896,10 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.14.0
+    dev: true
+
+  /@rushstack/eslint-patch/1.2.0:
+    resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
 
   /@types/estree/1.0.0:

@@ -13,6 +13,9 @@
     "node": ">= 16.11.0"
   },
   "devDependencies": {
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
     "eslint": "^8.35.0",
     "eslint-config-coralloy": "^0.1.1",
     "prettier": "^2.8.4",

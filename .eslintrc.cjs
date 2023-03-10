@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+require('@rushstack/eslint-patch/modern-module-resolution');
+
 module.exports = {
   root: true,
 
@@ -14,4 +17,8 @@ module.exports = {
   },
 
   extends: ['coralloy'],
+
+  rules: {
+    '@typescript-eslint/no-var-requires': 'off',
+  },
 };
