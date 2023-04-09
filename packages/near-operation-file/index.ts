@@ -2,7 +2,7 @@ import { type Plugin } from 'vite';
 
 export default function graphQLCodegen(): Plugin {
   return {
-    name: 'graphql-codegen',
+    name: 'graphql-codegen-near-operation-file',
 
     // TODO: Invoke GraphQL Codegen on the fly
     load(id) {
