@@ -13,7 +13,11 @@ export default function vueQueryBlock(): Plugin {
       // To avoid parsing errors, we must transform the custom <query> block.
       // The actual GraphQL stuff gets done by graphql-codegen.
       // So, just returning an empty function is enough.
-      return `export default () => {}`;
+      return {
+        code: 'export default () => {}',
+        // Empty sourcemap to avoid warnings
+        map: { mappings: '' },
+      };
     },
   };
 }
