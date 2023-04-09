@@ -22,6 +22,12 @@ const config: CodegenConfig = {
     'src/generated/graphql.ts': {
       plugins: [
         // ...
+
+        // These plugins are required for the plugin to work
+        'typed-document-node',
+        'typescript-operations',
+
+        // Add the plugin here
         '@dreamonkey/graphql-codegen-vue-apollo-plugin',
       ],
     },
