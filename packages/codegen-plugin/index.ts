@@ -58,30 +58,31 @@ const codegenPlugin: CodegenPlugin = {
     return {
       prepend: [
         ...(haveQueries || haveMutations
-          ? [
-              "import * as Vue from 'vue';",
-              "import * as VueApollo from '@vue/apollo-composable';",
-            ]
+          ? ["import type * as VueApollo from '@vue/apollo-composable';"]
           : []),
 
         ...(haveQueries
           ? [
               // @vue/apollo-composable doesn't directly export the types we need, so we import them from its specific file
-              "import * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';",
+              "import type * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';",
+              "import { computed as vueComputed } from 'vue';",
+              "import { useQuery as vueApolloUseQuery, useLazyQuery as vueApolloUseLazyQuery } from '@vue/apollo-composable';",
             ]
           : []),
 
         ...(haveMutations
           ? [
-              "import * as ApolloCore from '@apollo/client/core';",
+              "import { useMutation as vueApolloUseMutation, useApolloClient as vueApolloUseApolloClient } from '@vue/apollo-composable';",
+              "import { ApolloError as ApolloCoreApolloError } from '@apollo/client/core';",
 
+              "import type { Ref as VueRef } from 'vue';",
               // @vue/apollo-composable doesn't export the OptionsParameter even from the specific file, so we mimic it here
-              "import { ReactiveFunction as VueApolloReactiveFunction } from '@vue/apollo-composable/dist/util/ReactiveFunction';",
+              "import type { ReactiveFunction as VueApolloReactiveFunction } from '@vue/apollo-composable/dist/util/ReactiveFunction';",
               unindent(
                 `
                 type VueApolloMutationOptionsParameter<TResult, TVariables> = |
                   VueApollo.UseMutationOptions<TResult, TVariables> |
-                  Vue.Ref<VueApollo.UseMutationOptions<TResult, TVariables>> |
+                  VueRef<VueApollo.UseMutationOptions<TResult, TVariables>> |
                   VueApolloReactiveFunction<VueApollo.UseMutationOptions<TResult, TVariables>>;
               `,
                 16,
@@ -95,10 +96,15 @@ const codegenPlugin: CodegenPlugin = {
 };
 
 /**
- * Needs the following imports/types:
- * - import * as Vue from 'vue';
- * - import * as VueApollo from '@vue/apollo-composable';
- * - import * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';
+ * Needs the following type imports/aliases:
+ * - import type * as Vue from 'vue';
+ * - import type * as VueApollo from '@vue/apollo-composable';
+ * - import type * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';
+ *
+ * (For tree-shaking purposes, we use specific imports for non-type imports)
+ * Needs the following imports:
+ * - import { computed as vueComputed } from 'vue';
+ * - import { useQuery as vueApolloUseQuery, useLazyQuery as vueApolloUseLazyQuery } from '@vue/apollo-composable';
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
@@ -136,10 +142,10 @@ function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
       variables: VueApolloQuery.VariablesParameter<${queryName}Variables>${variablesModifier},
       options: VueApolloQuery.OptionsParameter<${queryName}, ${queryName}Variables> = {},
     ) {
-      const useQuery = VueApollo.useQuery(${documentName}, variables, options);
+      const useQuery = vueApolloUseQuery(${documentName}, variables, options);
       return {
         ...useQuery,
-        ${fieldName}: Vue.computed(() => useQuery.result.value?.${fieldName}${
+        ${fieldName}: vueComputed(() => useQuery.result.value?.${fieldName}${
       isNonNullableArray ? ' ?? []' : ''
     }),
       };
@@ -149,7 +155,7 @@ function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
       variables: VueApolloQuery.VariablesParameter<${queryName}Variables>${variablesModifier},
       options: VueApolloQuery.OptionsParameter<${queryName}, ${queryName}Variables> = {},
     ) {
-      return VueApollo.useLazyQuery(${documentName}, variables, options);
+      return vueApolloUseLazyQuery(${documentName}, variables, options);
     }
 
     export type ${name}CompositionFunctionResult = VueApollo.UseQueryReturn<${queryName}, ${queryName}Variables>;
@@ -158,9 +164,13 @@ function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
 }
 
 /**
- * Needs the following imports:
- * - import * as VueApollo from '@vue/apollo-composable';
+ * Needs the following type imports/aliases:
  * - type VueApolloMutationOptionsParameter
+ *
+ * (For tree-shaking purposes, we use specific imports for non-type imports)
+ * Needs the following imports:
+ * - import { useMutation as vueApolloUseMutation, useApolloClient as vueApolloUseApolloClient } from '@vue/apollo-composable';
+ * - import { ApolloError as ApolloCoreApolloError } from '@apollo/client/core';
  */
 function createMutationProcessor() {
   return function processMutation({
@@ -189,14 +199,14 @@ function createMutationProcessor() {
     export function use${mutationName}(
       options?: VueApolloMutationOptionsParameter<${mutationName}, ${mutationName}Variables>,
     ) {
-      const { resolveClient } = VueApollo.useApolloClient();
-      const useMutation = VueApollo.useMutation(${documentName}, options);
+      const { resolveClient } = vueApolloUseApolloClient();
+      const useMutation = vueApolloUseMutation(${documentName}, options);
       return {
         ...useMutation,
         ${fieldName}: async (...params: Parameters<typeof useMutation.mutate>) => {
           const result = await useMutation.mutate(...params);
           if (result?.errors && result.errors.length > 0) {
-            throw new ApolloCore.ApolloError({
+            throw new ApolloCoreApolloError({
               graphQLErrors: result.errors,
             });
           }
