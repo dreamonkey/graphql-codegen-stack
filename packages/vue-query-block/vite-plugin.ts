@@ -2,7 +2,7 @@ import { type Plugin } from 'vite';
 
 export default function vueQueryBlock(): Plugin {
   return {
-    name: 'graphql-codegen',
+    name: 'graphql-codegen-vue-query-block',
 
     // TODO: Invoke GraphQL Codegen on the fly
     transform(_code, id) {
