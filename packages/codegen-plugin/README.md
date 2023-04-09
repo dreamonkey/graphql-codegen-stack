@@ -4,6 +4,11 @@
 
 ## Installation
 
+Make sure you have installed and configured GraphQL Code Generator and Vue Apollo first:
+
+- [GraphQL Code Generator | Installation](https://the-guild.dev/graphql/codegen/docs/getting-started/installation)
+- [Vue Apollo | Installation](https://v4.apollo.vuejs.org/guide-composable/setup.html)
+
 Install the package:
 
 ```shell

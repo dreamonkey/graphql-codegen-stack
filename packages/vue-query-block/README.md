@@ -4,6 +4,10 @@ Write your GraphQL documents in Vue SFC `<query>` blocks to generate code with G
 
 ## Installation
 
+Make sure you have installed and configured GraphQL Code Generator first:
+
+- [GraphQL Code Generator | Installation](https://the-guild.dev/graphql/codegen/docs/getting-started/installation)
+
 Install the package:
 
 ```shell

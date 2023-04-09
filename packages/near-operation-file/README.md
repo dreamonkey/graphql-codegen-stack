@@ -6,6 +6,11 @@ Write your documents in `.graphql` files, then import the generated code from `.
 
 ## Installation
 
+Make sure you have installed and configured GraphQL Code Generator and the near-operation-file preset first:
+
+- [GraphQL Code Generator | Installation](https://the-guild.dev/graphql/codegen/docs/getting-started/installation)
+- [GraphQL Code Generator | Near Operation File Preset](https://the-guild.dev/graphql/codegen/docs/presets/near-operation-file)
+
 Install the package:
 
 ```shell
