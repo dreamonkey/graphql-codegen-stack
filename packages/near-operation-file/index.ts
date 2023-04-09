@@ -10,7 +10,11 @@ export default function graphQLCodegen(): Plugin {
         return;
       }
 
-      return `export * from '${id}.ts'`;
+      return {
+        code: `export * from '${id}.ts'`,
+        // Empty sourcemap to avoid warnings
+        map: { mappings: '' },
+      };
     },
   };
 }
