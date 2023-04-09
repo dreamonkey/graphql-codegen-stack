@@ -5,11 +5,19 @@ import {
   type OperationDefinitionNode,
 } from 'graphql';
 
-/**
- * @param str camelCase string
- */
 const toPascalCase = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
+
+/**
+ * Unindents a string by a given number of spaces (default 8)
+ * and removes the first and last line (which are empty)
+ */
+const unindent = (str: string, level = 8) =>
+  str
+    .split('\n')
+    .slice(1, -1)
+    .map((line) => line.slice(level))
+    .join('\n');
 
 const codegenPlugin: CodegenPlugin = {
   // Since this plugin is designed to work only with near-operation-file, there will always only be 1 document file at a time
@@ -64,7 +72,7 @@ const codegenPlugin: CodegenPlugin = {
           variableDefinitions && variableDefinitions.length > 0;
         const variablesModifier = hasVariables ? '' : ' = {}';
 
-        return `
+        return unindent(`
         export function use${queryName}(
           variables: VueApolloQuery.VariablesParameter<${queryName}Variables>${variablesModifier},
           options: VueApolloQuery.OptionsParameter<${queryName}, ${queryName}Variables> = {},
@@ -86,7 +94,7 @@ const codegenPlugin: CodegenPlugin = {
         }
 
         export type ${name}CompositionFunctionResult = VueApollo.UseQueryReturn<${queryName}, ${queryName}Variables>;
-      `;
+        `);
       },
     );
 
@@ -108,7 +116,7 @@ const codegenPlugin: CodegenPlugin = {
         const mutationName = `${name}Mutation`;
         const documentName = `${name}Document`;
 
-        return `
+        return unindent(`
         export function use${mutationName}(
           options?: VueApolloMutationOptionsParameter<${mutationName}, ${mutationName}Variables>,
         ) {
@@ -138,7 +146,7 @@ const codegenPlugin: CodegenPlugin = {
             },
           };
         }
-      `;
+        `);
       },
     );
 
