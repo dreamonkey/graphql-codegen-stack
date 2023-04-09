@@ -44,6 +44,17 @@ const config: CodegenConfig = {
 export default config;
 ```
 
+### .gitignore
+
+Add the following line to your `.gitignore` file:
+
+```gitignore
+# GraphQL Code Generator
+src/**/*.graphql.ts
+```
+
+If you are using a different folder instead of `src/` in `codegen.ts > generates`, adjust the path above accordingly.
+
 ### Vite config
 
 Add the plugin to your Vite config:
