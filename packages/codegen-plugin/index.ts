@@ -44,34 +44,62 @@ const codegenPlugin: CodegenPlugin = {
     const queryFields = queryType.getFields();
     const queryContents = operations
       .filter(({ operation }) => operation === 'query')
-      .map(createQueryProcessor(queryFields));
+      .map(createQueryProcessor(queryFields))
+      .filter((content): content is string => content !== undefined);
 
     const mutationContents = operations
       .filter(({ operation }) => operation === 'mutation')
-      .map(createMutationProcessor());
+      .map(createMutationProcessor())
+      .filter((content): content is string => content !== undefined);
+
+    const haveQueries = queryContents.length > 0;
+    const haveMutations = mutationContents.length > 0;
 
     return {
       prepend: [
-        "import * as Vue from 'vue';",
-        "import * as VueApollo from '@vue/apollo-composable';",
-        "import * as ApolloCore from '@apollo/client/core';",
+        ...(haveQueries || haveMutations
+          ? [
+              "import * as Vue from 'vue';",
+              "import * as VueApollo from '@vue/apollo-composable';",
+            ]
+          : []),
 
-        // @vue/apollo-composable doesn't directly export the types we need, so we import them from its specific file
-        "import * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';",
+        ...(haveQueries
+          ? [
+              // @vue/apollo-composable doesn't directly export the types we need, so we import them from its specific file
+              "import * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';",
+            ]
+          : []),
 
-        // @vue/apollo-composable doesn't export the OptionsParameter even from the specific file, so we mimic it here
-        "import { ReactiveFunction as VueApolloReactiveFunction } from '@vue/apollo-composable/dist/util/ReactiveFunction';",
-        `type VueApolloMutationOptionsParameter<TResult, TVariables> = |
-          VueApollo.UseMutationOptions<TResult, TVariables> |
-          Vue.Ref<VueApollo.UseMutationOptions<TResult, TVariables>> |
-          VueApolloReactiveFunction<VueApollo.UseMutationOptions<TResult, TVariables>>;
-        `,
+        ...(haveMutations
+          ? [
+              "import * as ApolloCore from '@apollo/client/core';",
+
+              // @vue/apollo-composable doesn't export the OptionsParameter even from the specific file, so we mimic it here
+              "import { ReactiveFunction as VueApolloReactiveFunction } from '@vue/apollo-composable/dist/util/ReactiveFunction';",
+              unindent(
+                `
+                type VueApolloMutationOptionsParameter<TResult, TVariables> = |
+                  VueApollo.UseMutationOptions<TResult, TVariables> |
+                  Vue.Ref<VueApollo.UseMutationOptions<TResult, TVariables>> |
+                  VueApolloReactiveFunction<VueApollo.UseMutationOptions<TResult, TVariables>>;
+              `,
+                16,
+              ),
+            ]
+          : []),
       ],
       content: queryContents.join('\n') + mutationContents.join('\n'),
     };
   },
 };
 
+/**
+ * Needs the following imports/types:
+ * - import * as Vue from 'vue';
+ * - import * as VueApollo from '@vue/apollo-composable';
+ * - import * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
   return function processQuery({
@@ -129,6 +157,11 @@ function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
   };
 }
 
+/**
+ * Needs the following imports:
+ * - import * as VueApollo from '@vue/apollo-composable';
+ * - type VueApolloMutationOptionsParameter
+ */
 function createMutationProcessor() {
   return function processMutation({
     name: nameNode,
