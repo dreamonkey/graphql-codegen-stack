@@ -1,6 +1,6 @@
 {
   "name": "@dreamonkey/graphql-codegen-near-operation-file",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write your documents in `.graphql` files, then import the generated code from `.graphql` files in your code!",
   "author": "Dreamonkey Srl <info@dreamonkey.com> (https://dreamonkey.com)",
   "contributors": [
