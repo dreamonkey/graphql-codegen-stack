@@ -6,7 +6,7 @@ export default function vueQueryBlock(): Plugin {
 
     // TODO: Invoke GraphQL Codegen on the fly
     transform(_code, id) {
-      if (!/vue&type=query/.test(id)) {
+      if (!id.includes('vue&type=query')) {
         return;
       }
 

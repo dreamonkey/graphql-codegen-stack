@@ -57,8 +57,8 @@ export function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
       return {
         ...useQuery,
         ${fieldName}: vueComputed(() => useQuery.result.value?.${fieldName}${
-      isNonNullableArray ? ' ?? []' : ''
-    }),
+          isNonNullableArray ? ' ?? []' : ''
+        }),
       };
     }
 
