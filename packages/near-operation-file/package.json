@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.18.12",
-    "unbuild": "^1.1.1",
+    "unbuild": "^2.0.0",
     "vite": "^2.9.15"
   }
 }

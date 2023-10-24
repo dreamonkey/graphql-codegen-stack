@@ -1,5 +1,5 @@
 import { OperationDefinitionNode } from 'graphql';
-import { toPascalCase, unindent } from './utils';
+import { toPascalCase, unindent } from './utils.js';
 
 // For tree-shaking purposes, use named imports for non-type imports
 export const mutationDependecies = [

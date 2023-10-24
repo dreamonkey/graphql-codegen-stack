@@ -1,8 +1,8 @@
 import { type CodegenPlugin } from '@graphql-codegen/plugin-helpers';
 import { type OperationDefinitionNode } from 'graphql';
-import { createMutationProcessor, mutationDependecies } from './mutation';
-import { createQueryProcessor, queryDependecies } from './query';
-import { uniqueArray } from './utils';
+import { createMutationProcessor, mutationDependecies } from './mutation.js';
+import { createQueryProcessor, queryDependecies } from './query.js';
+import { uniqueArray } from './utils.js';
 
 const codegenPlugin: CodegenPlugin = {
   // Since this plugin is designed to work only with near-operation-file, there will always only be 1 document file at a time
