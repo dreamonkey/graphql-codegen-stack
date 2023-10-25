@@ -1,6 +1,6 @@
 {
   "name": "@dreamonkey/graphql-codegen-vue-apollo-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "graphql-typed-document-node compatible GraphQL Code Generator plugin for Vue Apollo",
   "author": "Dreamonkey Srl <info@dreamonkey.com> (https://dreamonkey.com)",
   "contributors": [

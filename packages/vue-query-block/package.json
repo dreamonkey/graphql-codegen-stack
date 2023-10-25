@@ -1,6 +1,6 @@
 {
   "name": "@dreamonkey/graphql-codegen-vue-query-block",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Write your GraphQL documents in Vue SFC `<query>` blocks to generate code with GraphQL Code Generator.",
   "author": "Dreamonkey Srl <info@dreamonkey.com> (https://dreamonkey.com)",
   "contributors": [
