@@ -1,5 +1,6 @@
 import {
   GraphQLFieldMap,
+  Kind,
   OperationDefinitionNode,
   isListType,
   isNonNullType,
@@ -30,7 +31,7 @@ export function createQueryProcessor(queryFields: GraphQLFieldMap<any, any>) {
     }
     // Queries should contain their first selection as the field name on the GraphQL schema
     const field = selectionSet.selections[0];
-    if (field?.kind !== 'Field') {
+    if (field?.kind !== Kind.FIELD) {
       console.warn('[vue-apollo] Skipping query with no field');
       return;
     }
