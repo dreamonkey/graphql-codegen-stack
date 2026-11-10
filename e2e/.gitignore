@@ -1,0 +1,6 @@
+.tarballs/
+# Everything in a variant project except package.json comes from fixtures/ or the test run.
+/minimum/*
+/latest/*
+!/minimum/package.json
+!/latest/package.json

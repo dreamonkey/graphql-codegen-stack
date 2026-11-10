@@ -1,0 +1,23 @@
+{
+  "name": "e2e-minimum",
+  "private": true,
+  "description": "The oldest dependency versions the packages support. GraphQL Code Generator 7.4.2 is the first 7.x release that loads ESM plugins from the project.",
+  "dependencies": {
+    "@apollo/client": "^3.6.0",
+    "@dreamonkey/graphql-codegen-near-operation-file": "file:../.tarballs/near-operation-file.tgz",
+    "@dreamonkey/graphql-codegen-vue-apollo-plugin": "file:../.tarballs/codegen-plugin.tgz",
+    "@dreamonkey/graphql-codegen-vue-query-block": "file:../.tarballs/vue-query-block.tgz",
+    "@graphql-codegen/cli": "~7.4.2",
+    "@graphql-codegen/near-operation-file-preset": "~5.0.0",
+    "@graphql-codegen/typed-document-node": "~7.0.0",
+    "@graphql-codegen/typescript-operations": "~6.0.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@vitejs/plugin-vue": "~5.0.0",
+    "@vue/apollo-composable": "~4.0.0",
+    "@vue/compiler-sfc": "~3.3.0",
+    "graphql": "~16.0.0",
+    "typescript": "~5.9.0",
+    "vite": "~5.0.0",
+    "vue": "~3.3.0"
+  }
+}

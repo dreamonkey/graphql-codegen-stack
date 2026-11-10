@@ -1,0 +1,37 @@
+fragment PostDetails on Post {
+  id
+  title
+  body
+}
+
+query getPosts {
+  posts {
+    ...PostDetails
+  }
+}
+
+query getPost($id: ID!) {
+  post(id: $id) {
+    ...PostDetails
+  }
+}
+
+query getMaybePosts {
+  maybePosts {
+    id
+  }
+}
+
+query getCount {
+  count
+}
+
+mutation createPost($input: PostInput!) {
+  createPost(input: $input) {
+    ...PostDetails
+  }
+}
+
+mutation deletePost($id: ID!) {
+  deletePost(id: $id)
+}

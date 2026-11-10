@@ -1,19 +1,18 @@
+import { extname } from 'node:path';
 import {
-  type CodegenPlugin,
   type PluginFunction,
+  type PluginInfo,
+  type PluginValidateFn,
 } from '@graphql-codegen/plugin-helpers';
 import { Kind, OperationTypeNode, type OperationDefinitionNode } from 'graphql';
 import { createMutationProcessor, mutationDependecies } from './mutation.js';
 import { createQueryProcessor, queryDependecies } from './query.js';
 import { uniqueArray } from './utils.js';
 
-// Exported as a named `plugin` (not only via the default object) so GraphQL Code
-// Generator can resolve the plugin function whether the module is loaded with ESM
-// `import` or CJS `require`. codegen 7 loads custom plugins via `import`, which only
-// sees named/default exports of this `"type": "module"` package; a default-only
-// export fails with `does not export a valid JS object with "plugin" function`.
-// Since this plugin is designed to work only with near-operation-file, there will
-// always only be 1 document file at a time.
+const SUPPORTED_EXTENSIONS = ['.ts', '.tsx', '.mts', '.cts'];
+
+// codegen 7+ loads plugins with ESM `import` and reads the named `plugin` export.
+// The plugin only works with near-operation-file, so it receives one document file at a time.
 // TODO: Support multiple documents
 export const plugin: PluginFunction = (schema, [documentFile]) => {
   if (!documentFile) {
@@ -45,19 +44,31 @@ export const plugin: PluginFunction = (schema, [documentFile]) => {
     .map(createMutationProcessor())
     .filter((content): content is string => content !== undefined);
 
-  const haveQueries = queryContents.length > 0;
-  const haveMutations = mutationContents.length > 0;
+  const hasQueries = queryContents.length > 0;
+  const hasMutations = mutationContents.length > 0;
 
   return {
     prepend: uniqueArray([
-      ...(haveQueries ? queryDependecies : []),
+      ...(hasQueries ? queryDependecies : []),
 
-      ...(haveMutations ? mutationDependecies : []),
+      ...(hasMutations ? mutationDependecies : []),
     ]),
-    content: queryContents.join('\n') + mutationContents.join('\n'),
+    content: [...queryContents, ...mutationContents].join('\n'),
   };
 };
 
-const codegenPlugin: CodegenPlugin = { plugin };
-
-export default codegenPlugin;
+// codegen 8 passes an info object as the fourth argument. codegen 7 passes the output file path.
+export const validate: PluginValidateFn = (
+  _schema,
+  _documents,
+  _config,
+  info: PluginInfo | string,
+) => {
+  const outputFile = typeof info === 'string' ? info : info.outputFile;
+  if (!SUPPORTED_EXTENSIONS.includes(extname(outputFile))) {
+    const supportedExtensions = SUPPORTED_EXTENSIONS.join(', ');
+    throw new Error(
+      `Plugin "@dreamonkey/graphql-codegen-vue-apollo-plugin" requires the output file extension to be one of: ${supportedExtensions}. Received: ${outputFile}`,
+    );
+  }
+};

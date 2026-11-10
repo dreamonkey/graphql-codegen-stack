@@ -4,20 +4,22 @@
   "private": true,
   "scripts": {
     "build": "pnpm run --recursive --stream --parallel build",
-    "test": "pnpm run --recursive --stream test",
+    "test": "vitest run --config e2e/vitest.config.mts",
     "lint": "eslint . --ext .ts,.js,.cjs",
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,mts,json,yaml,yml,md}\"",
     "format:check": "prettier --check \"**/*.{js,cjs,mjs,ts,mts,json,yaml,yml,md}\"",
     "deploy": "pnpm run build && pnpm -r publish"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.18.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.5.1",
     "eslint": "^8.52.0",
     "eslint-config-coralloy": "^0.2.1",
+    "execa": "^10.2.1",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.9.0",
+    "vitest": "^5.1.0"
   }
 }

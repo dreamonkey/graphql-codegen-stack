@@ -1,0 +1,8 @@
+# Makes each variant project its own workspace root, outside the repository workspace.
+lockfile: false
+
+allowBuilds:
+  # Checks that the platform binary is installed.
+  esbuild: true
+  # Selects the Vue 2 or Vue 3 build.
+  vue-demi: true

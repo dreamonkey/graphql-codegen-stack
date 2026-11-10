@@ -155,15 +155,10 @@ const config: CodegenConfig = {
   schema: process.env.GRAPHQL_SCHEMA,
   documents: [vueDocuments],
   generates: {
-    './src/generated/graphql.ts': {
-      plugins: ['typescript'],
-    },
-
     'src/': {
       preset: 'near-operation-file',
       presetConfig: {
         extension: '.ts',
-        baseTypesPath: 'generated/graphql.ts',
       },
       plugins: [
         'typescript-operations',
