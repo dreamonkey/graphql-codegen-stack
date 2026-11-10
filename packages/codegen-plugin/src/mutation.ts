@@ -53,6 +53,8 @@ export function createMutationProcessor() {
     const mutationName = `${name}Mutation`;
     const documentName = `${name}Document`;
 
+    // The `data === undefined` case will probably never happen, but we cover it just in case (unless using a custom void scalar?)
+    // TODO: Use options.clientId in `resolveClient()` to support multiple clients
     return unindent(`
     export function use${mutationName}(
       options?: VueApolloMutationOptionsParameter<${mutationName}, ${mutationName}Variables>,
@@ -69,15 +71,11 @@ export function createMutationProcessor() {
             });
           }
           const data = result?.data?.${fieldName};
-          if (data === undefined) {${
-            /* This case will probably never happen, but we cover it just in case (unless using a custom void scalar?) */ ''
-          }
+          if (data === undefined) {
             throw new Error('No data returned from mutation')
           }
 
-          const { cache } = resolveClient(${
-            /* TODO: Use options.clientId here to support multiple clients */ ''
-          });
+          const { cache } = resolveClient();
 
           return { data, cache };
         },
