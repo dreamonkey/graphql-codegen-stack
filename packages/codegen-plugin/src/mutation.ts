@@ -1,4 +1,4 @@
-import { OperationDefinitionNode } from 'graphql';
+import { Kind, OperationDefinitionNode } from 'graphql';
 import { toPascalCase, unindent } from './utils.js';
 
 // For tree-shaking purposes, use named imports for non-type imports
@@ -42,7 +42,7 @@ export function createMutationProcessor() {
 
     // Mutations should contain their first selection as the field/mutation name on the GraphQL schema
     const field = selectionSet.selections[0];
-    if (field?.kind !== 'Field') {
+    if (field?.kind !== Kind.FIELD) {
       console.warn('[vue-apollo] Skipping mutation with no field');
       return;
     }
