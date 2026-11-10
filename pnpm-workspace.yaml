@@ -1,5 +1,5 @@
 packages:
-  - "packages/*"
+  - 'packages/*'
 
 allowBuilds:
   # Checks that the platform binary is installed.
