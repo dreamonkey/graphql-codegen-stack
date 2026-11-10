@@ -12,8 +12,10 @@ export const queryDependecies = [
   "import { computed as vueComputed } from 'vue';",
   "import { useQuery as vueApolloUseQuery, useLazyQuery as vueApolloUseLazyQuery } from '@vue/apollo-composable';",
 
-  // @vue/apollo-composable doesn't directly export the types we need, so we import them from its specific file
-  "import type * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery';",
+  // @vue/apollo-composable doesn't directly export the types we need, so we import them from its specific file.
+  // Its "./*" export maps the path as written, and no extensionless file exists.
+  // TypeScript maps the ".js" path to the ".d.ts" file next to it.
+  "import type * as VueApolloQuery from '@vue/apollo-composable/dist/useQuery.js';",
 
   "import type { UseQueryReturn as VueApolloUseQueryReturn } from '@vue/apollo-composable';",
 ];

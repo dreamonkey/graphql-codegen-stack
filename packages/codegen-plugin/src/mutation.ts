@@ -9,7 +9,7 @@ export const mutationDependecies = [
   "import type { UseMutationOptions as VueApolloUseMutationOptions } from '@vue/apollo-composable';",
   "import type { Ref as VueRef } from 'vue';",
   // @vue/apollo-composable doesn't export the OptionsParameter even from the specific file, so we mimic it here
-  "import type { ReactiveFunction as VueApolloReactiveFunction } from '@vue/apollo-composable/dist/util/ReactiveFunction';",
+  "import type { ReactiveFunction as VueApolloReactiveFunction } from '@vue/apollo-composable/dist/util/ReactiveFunction.js';",
   unindent(
     `
       type VueApolloMutationOptionsParameter<TResult, TVariables> = |

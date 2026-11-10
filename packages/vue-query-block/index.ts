@@ -10,9 +10,10 @@ export default async function (
   }
 
   const contents = await readFile(pointer, 'utf-8');
-  const { errors, descriptor } = parseVueSfc(contents);
+  const { errors, descriptor } = parseVueSfc(contents, { filename: pointer });
   if (errors.length > 0) {
-    return;
+    const messages = errors.map((error) => error.message).join('\n');
+    throw new Error(`Failed to parse the Vue SFC at ${pointer}:\n${messages}`);
   }
 
   const queryBlock = descriptor.customBlocks.find(
